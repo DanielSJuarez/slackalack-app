@@ -1,6 +1,6 @@
-function ChannelDisplay({title}) {
+function ChannelDisplay({channel}) {
     return (
-      <button className='channelButton' type='button'># {title}</button>
+      <button className='channelButton' type='button'># {channel}</button>
     );
   }
   
