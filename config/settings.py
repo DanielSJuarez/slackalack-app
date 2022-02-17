@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'allauth.socialaccount',
+    'api.apps.ApiConfig',
     'frontend.apps.FrontendConfig',
     'channels.apps.ChannelsConfig',
 ]
