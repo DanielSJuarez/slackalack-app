@@ -3,5 +3,3 @@ from .models import ChannelDisplay
 
 # Register your models here.
 admin.site.register(ChannelDisplay)
-
-
