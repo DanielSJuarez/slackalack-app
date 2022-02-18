@@ -36,6 +36,10 @@ function App() {
 
   return (
     <>
+      <nav>
+        <button name='logOut' type='button' className='logOut'>Logout</button>
+      </nav>
+      <button name='addChannel' type='button' className='addChannel'>+</button>
       {channelList}
       <Login />
       <MessageDisplay />

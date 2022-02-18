@@ -9,3 +9,6 @@ from .serializers import ChannelsSerializers
 class ChannelsListAPIView(generics.ListAPIView):
     queryset = ChannelDisplay.objects.all()
     serializer_class = ChannelsSerializers
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
