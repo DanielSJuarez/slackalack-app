@@ -6,8 +6,8 @@ function Register(props) {
     const [state, setState] = useState({
         username: '',
         email: '',
-        passwordOne: '',
-        passwordTwo: '',
+        password1: '',
+        password2: '',
     })
 
     const handleInput = (event) => {
@@ -57,11 +57,11 @@ function Register(props) {
             <label htmlFor='email'>Email</label>
             <input type='email' name='email' id='email' placeholder='email' onChange={handleInput} required value={state.email}/>
 
-            <label htmlFor='password'>Password</label>
-            <input type='password' name='passwordOne' id='password' placeholder='password' onChange={handleInput} required value={state.password}></input>
+            <label htmlFor='password1'>Password</label>
+            <input type='password' name='password1' id='password' placeholder='password' onChange={handleInput} required value={state.password1}></input>
 
-            <label htmlFor='password'>Confirm Password</label>
-            <input type='password' name='confirmPassword' id='password' placeholder='password' onChange={handleInput} required value={state.password}></input>
+            <label htmlFor='password2'>Confirm Password</label>
+            <input type='password' name='password2' id='password' placeholder='password' onChange={handleInput} required value={state.password2}></input>
 
             <button type='submit'>Login</button>
         </form>
