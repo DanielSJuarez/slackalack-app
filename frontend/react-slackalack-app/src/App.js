@@ -17,7 +17,7 @@ function App() {
   })
 
   const errorMessage = (err) => {
-    console.warn(err);
+    console.log(err);
   }
 
   useEffect(() => {
@@ -39,9 +39,9 @@ function App() {
     return <div>Fetching channel data....</div>
   }
 
-  const handleError = (err) => {
-    console.log(err);
-  }
+  // const handleError = (err) => {
+  //   console.log(err);
+  // }
 
   const handleLogout = async event => {
     event.preventDefault();
@@ -55,7 +55,7 @@ function App() {
     }
 
     const response = await fetch('/rest-auth/logout/', options).catch(
-      handleError
+      errorMessage
     )
 
     const data = await response.json();
@@ -68,7 +68,7 @@ function App() {
   ));
 
   const messageList = messageView.map(message => (
-    <MessageDisplay key={message.id} {...message} />
+    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView}/>
   ));
 
 
@@ -90,7 +90,7 @@ function App() {
       body: JSON.stringify(message) 
     }
 
-    const response = await fetch('/api/v1/channels/', options).catch(handleError);
+    const response = await fetch('/api/v1/channels/', options).catch(errorMessage);
 
     if (!response.ok) {
       throw new Error('Network response was not OK');
@@ -118,7 +118,7 @@ function App() {
       body: JSON.stringify(message) 
     }
 
-    const response = await fetch('/api/v1/channels/1/messages/', options).catch(handleError);
+    const response = await fetch('/api/v1/channels/1/messages/', options).catch(errorMessage);
 
     if (!response.ok) {
       throw new Error('Network response was not OK');
