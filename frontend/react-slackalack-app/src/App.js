@@ -9,6 +9,7 @@ function App() {
   const [channelsView, setChannelsView] = useState(null);
   const [messageView, setMessageView] = useState([]);
   const [newMessage, setNewMessage] = useState('')
+  const [newChannel, setNewChannel] = useState('')
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'));
   const [state, setState] = useState({
     username: '',
@@ -71,6 +72,33 @@ function App() {
   ));
 
 
+  const addChannelName = (event) => { 
+    const channelName = event.target.value;
+    setNewChannel(channelName) 
+  }
+
+  const addChannel = async () => {
+    const message = {
+      channel: newChannel,  
+    }
+    const options = {
+      method: 'POST', 
+      headers: {
+        'Content-type': 'application/json',
+        'X-CSRFToken': Cookies.get('csrftoken')
+      },
+      body: JSON.stringify(message) 
+    }
+
+    const response = await fetch('/api/v1/channels/', options).catch(handleError);
+
+    if (!response.ok) {
+      throw new Error('Network response was not OK');
+    }
+    setNewMessage('')
+  }
+
+
   const messageContent = (event) => { 
     const messageDetails = event.target.value;
     setNewMessage(messageDetails) 
@@ -95,6 +123,7 @@ function App() {
     if (!response.ok) {
       throw new Error('Network response was not OK');
     }
+    setNewMessage('')
   }
 
   return (
@@ -104,7 +133,8 @@ function App() {
       </nav>
       <Login setAuth={setAuth} />
       <Register setAuth={setAuth} />
-      <button name='addChannel' type='button' className='addChannel'>+</button>
+      <input type='text' name='channel' id='channel' placeholder='channel' onChange={addChannelName}/>
+      <button name='addChannel' type='button' className='addChannel' onClick={addChannel}>+</button>
       {channelList}
       {messageList}
       <input type='text' name='message' id='message' placeholder='message' onChange={messageContent}/>

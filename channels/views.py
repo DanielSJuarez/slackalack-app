@@ -6,7 +6,7 @@ from .serializers import ChannelsSerializers, MessageSerializer
 
 # Create your views here.
 
-class ChannelsListAPIView(generics.ListAPIView):
+class ChannelsListAPIView(generics.ListCreateAPIView):
     queryset = ChannelDisplay.objects.all()
     serializer_class = ChannelsSerializers
 
