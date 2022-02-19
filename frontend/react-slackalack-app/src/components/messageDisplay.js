@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import{ useState} from 'react'
 
-function MessageDisplay({ text, username, errorMessage}) {
+function MessageDisplay({id,  text, username, errorMessage , pkChannel}) {
   const [updatedMesssage, setUpdatedMessage] = useState('')
 
   const editMessageDetails = (event) => { 
@@ -12,7 +12,7 @@ function MessageDisplay({ text, username, errorMessage}) {
   const editMessage = async () => {
     const newUpdatedMessage = {
       text: updatedMesssage, 
-      channel: 1,
+      channel: pkChannel,
     }
     const options = {
       method: 'PUT', 
@@ -23,7 +23,7 @@ function MessageDisplay({ text, username, errorMessage}) {
       body: JSON.stringify(newUpdatedMessage) 
     }
 
-    const response = await fetch('/api/v1/channels/1/messages/3/', options).catch(errorMessage);
+    const response = await fetch(`/api/v1/channels/${pkChannel}/messages/${id}/`, options).catch(errorMessage);
 
     if (!response.ok) {
       throw new Error('Network response was not OK');
@@ -42,7 +42,7 @@ function MessageDisplay({ text, username, errorMessage}) {
       },
     }
 
-    const response = await fetch('/api/v1/channels/1/messages/2/', options).catch(errorMessage);
+    const response = await fetch(`/api/v1/channels/${pkChannel}/messages/${id}/`, options).catch(errorMessage);
 
     if (!response.ok) {
       throw new Error('Network response was not OK');
@@ -54,8 +54,8 @@ function MessageDisplay({ text, username, errorMessage}) {
     <p>{text}
       <span> {username}</span>
       <span><input type='text' name='channel' id='channel' placeholder='channel' onChange={editMessageDetails}/></span>
-      <span><button type='button' name='edit' onClick={editMessage}>edit</button></span>
-      <span><button type='button' name='delete' onClick={deleteMessage}>delete</button></span>
+      <span><button id={id} type='button' name='edit' onClick={editMessage}>edit</button></span>
+      <span><button id={id} type='button' name='delete' onClick={deleteMessage}>delete</button></span>
     </p>
   );
 }

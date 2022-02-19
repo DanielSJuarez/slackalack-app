@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie'
-function ChannelDisplay({ channel, errorMessage, setMessageView}) {
-
+function ChannelDisplay({id, channel, errorMessage, setMessageView}) {
   const viewChannelMessages = async () => {
   
     const options = {
@@ -12,7 +11,7 @@ function ChannelDisplay({ channel, errorMessage, setMessageView}) {
       },
     }
 
-    const response = await fetch('/api/v1/channels/1/messages/', options).catch(errorMessage);
+    const response = await fetch(`/api/v1/channels/${id}/messages/`, options).catch(errorMessage);
 
     if (!response.ok) {
       throw new Error('Network response was not OK');
@@ -23,7 +22,7 @@ function ChannelDisplay({ channel, errorMessage, setMessageView}) {
   }
 
   return (
-    <button className='channelButton' type='button' onClick={viewChannelMessages}># {channel}</button>
+    <button id={id} className='channelButton' type='button' onClick={viewChannelMessages}># {channel}</button>
   );
 }
 

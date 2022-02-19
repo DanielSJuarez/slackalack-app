@@ -20,6 +20,7 @@ function App() {
     console.log(err);
   }
 
+
   useEffect(() => {
     const getChannels = async () => {
       const response = await fetch('/api/v1/channels/').catch(errorMessage);
@@ -33,15 +34,15 @@ function App() {
       }
     }
     getChannels();
+    setInterval(() => getChannels(), 10000)
   }, [])
+
+
+
 
   if (!channelsView) {
     return <div>Fetching channel data....</div>
   }
-
-  // const handleError = (err) => {
-  //   console.log(err);
-  // }
 
   const handleLogout = async event => {
     event.preventDefault();
@@ -68,26 +69,26 @@ function App() {
   ));
 
   const messageList = messageView.map(message => (
-    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView}/>
+    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} />
   ));
 
 
-  const addChannelName = (event) => { 
+  const addChannelName = (event) => {
     const channelName = event.target.value;
-    setNewChannel(channelName) 
+    setNewChannel(channelName)
   }
 
   const addChannel = async () => {
     const message = {
-      channel: newChannel,  
+      channel: newChannel,
     }
     const options = {
-      method: 'POST', 
+      method: 'POST',
       headers: {
         'Content-type': 'application/json',
         'X-CSRFToken': Cookies.get('csrftoken')
       },
-      body: JSON.stringify(message) 
+      body: JSON.stringify(message)
     }
 
     const response = await fetch('/api/v1/channels/', options).catch(errorMessage);
@@ -99,26 +100,26 @@ function App() {
   }
 
 
-  const messageContent = (event) => { 
+  const messageContent = (event) => {
     const messageDetails = event.target.value;
-    setNewMessage(messageDetails) 
+    setNewMessage(messageDetails)
   }
 
   const addMessage = async () => {
     const message = {
-      text: newMessage, 
+      text: newMessage,
       channel: 1,
     }
     const options = {
-      method: 'POST', 
+      method: 'POST',
       headers: {
         'Content-type': 'application/json',
         'X-CSRFToken': Cookies.get('csrftoken')
       },
-      body: JSON.stringify(message) 
+      body: JSON.stringify(message)
     }
 
-    const response = await fetch('/api/v1/channels/1/messages/', options).catch(errorMessage);
+    const response = await fetch(`/api/v1/channels/1/messages/`, options).catch(errorMessage);
 
     if (!response.ok) {
       throw new Error('Network response was not OK');
@@ -133,11 +134,11 @@ function App() {
       </nav>
       <Login setAuth={setAuth} />
       <Register setAuth={setAuth} />
-      <input type='text' name='channel' id='channel' placeholder='channel' onChange={addChannelName}/>
+      <input type='text' name='channel' id='channel' placeholder='channel' onChange={addChannelName} />
       <button name='addChannel' type='button' className='addChannel' onClick={addChannel}>+</button>
       {channelList}
       {messageList}
-      <input type='text' name='message' id='message' placeholder='message' onChange={messageContent}/>
+      <input type='text' name='message' id='message' placeholder='message' onChange={messageContent} />
       <button type='button' onClick={addMessage}>Send</button>
 
     </>
