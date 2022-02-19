@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 function App() {
   const [channelsView, setChannelsView] = useState(null);
   const [messageView, setMessageView] = useState([]);
+  const [newMessage, setNewMessage] = useState('')
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'));
   const [state, setState] = useState({
     username: '',
@@ -70,24 +71,16 @@ function App() {
   ));
 
 
-  const messageContent = (event) => { //change to a string
-    const {name, value} = event.target;
+  const messageContent = (event) => { 
+    const messageDetails = event.target.value;
+    setNewMessage(messageDetails) 
+  }
 
-    setState((prevState) => ({
-        ...prevState,
-        [name]: value,
-    }));
-}
-
-
-  const addMessage = async (event) => {
-    event.preventDefault();
-    console.log({messageContent})
+  const addMessage = async () => {
     const message = {
-      text: {messageContent}, 
+      text: newMessage, 
       channel: 1,
     }
-
     const options = {
       method: 'POST', 
       headers: {
@@ -114,11 +107,9 @@ function App() {
       <button name='addChannel' type='button' className='addChannel'>+</button>
       {channelList}
       {messageList}
-      <form onSubmit={addMessage}>
-        <input type='text' name='message' id='message' placeholder='message'onChange={messageContent}/>
-        <button type='submit'>Send</button>
-      </form>
-      
+      <input type='text' name='message' id='message' placeholder='message' onChange={messageContent}/>
+      <button type='button' onClick={addMessage}>Send</button>
+
     </>
   );
 }

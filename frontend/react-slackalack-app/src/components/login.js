@@ -41,7 +41,7 @@ function Login(props) {
             throw new Error('Network response not ok!');
         } else {
             const data = await response.json();
-            Cookies.set('Authorization', `Token ${data.key}`); //remove authorization on logout setAuth(false)
+            Cookies.set('Authorization', `Token ${data.key}`); 
             props.setAuth(true);
         }
     }

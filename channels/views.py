@@ -22,10 +22,12 @@ class MessageList(generics.ListCreateAPIView):
         channel = self.kwargs['channel']
         return Message.objects.filter(channel=channel)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)   
+
 
 class MessageListDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    
