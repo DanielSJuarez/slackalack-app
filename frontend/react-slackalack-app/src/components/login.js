@@ -53,7 +53,7 @@ function Login(props) {
 
     return (
         <>
-            <h1 className='loginHeader'>Slackalack Login <span class="dot"></span></h1>
+            <h1 className='loginHeader'>Slackalack Login <span className="dot"></span></h1>
             <div className='loginPlacholder'>
                 <form onSubmit={handleSubmit}>
                     <div className='col loginField'>

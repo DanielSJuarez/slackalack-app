@@ -25,6 +25,9 @@ function Register(props) {
 
     const handleCreateSubmit = async event => {
         event.preventDefault();
+        if (state.password1 !== state.password2) {
+            alert('Passwords to not match, please try again')
+        }
 
         const options = {
             method: 'POST',
@@ -55,7 +58,7 @@ function Register(props) {
 
     return (
         <>
-        <h1 className='loginHeader'>Slackalack Registration <span class="dot"></span></h1>
+        <h1 className='loginHeader'>Slackalack Registration <span className="dot"></span></h1>
         <div className='loginPlacholder'>
         <form onSubmit={handleCreateSubmit}>
             <div className='col loginField'>
