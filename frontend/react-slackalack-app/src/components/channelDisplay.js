@@ -8,9 +8,9 @@ function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchanne
   }
 
   useEffect(() => {
-      setPkchannelState(id)
-      if (channelClicked) {
-        const getMessages = async () => {
+    setPkchannelState(id)
+    if (channelClicked) {
+      const getMessages = async () => {
         const response = await fetch(`/api/v1/channels/${id}/messages/`).catch(errorMessage);
 
         if (!response.ok) {
@@ -27,7 +27,9 @@ function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchanne
   }, [channelClicked])
 
   return (
-    <button id={id} className='channelButton' type='button' onClick={viewChannelMessages}># {channel}</button>
+    <div className='col'>
+      <button id={id} className='channelButton' type='button' onClick={viewChannelMessages}># {channel}</button>
+    </div>
   );
 }
 

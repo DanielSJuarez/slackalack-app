@@ -11,6 +11,7 @@ function App() {
   const [newMessage, setNewMessage] = useState('')
   const [newChannel, setNewChannel] = useState('')
   const [pkChannelState, setPkchannelState] = useState('')
+  const [account, setAccount] = useState(true)
 
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'));
   const [state, setState] = useState({
@@ -67,11 +68,11 @@ function App() {
   }
 
   const channelList = channelsView.map(channel => (
-    <ChannelDisplay key={channel.id} {...channel} setMessageView={setMessageView} setPkchannelState={setPkchannelState}/>
+    <ChannelDisplay key={channel.id} {...channel} setMessageView={setMessageView} setPkchannelState={setPkchannelState} />
   ));
 
   const messageList = messageView.map(message => (
-    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} pkChannelState={pkChannelState}/>
+    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} pkChannelState={pkChannelState} />
   ));
 
 
@@ -129,20 +130,34 @@ function App() {
     setNewMessage('')
   }
 
-  return (
+  const homeScreen = (
     <>
-      <nav>
+    <nav>
         <button name='logOut' type='button' className='logOut' onClick={handleLogout}>Logout</button>
       </nav>
-      <Login setAuth={setAuth} />
-      <Register setAuth={setAuth} />
       <input type='text' name='channel' id='channel' placeholder='channel' onChange={addChannelName} />
       <button name='addChannel' type='button' className='addChannel' onClick={addChannel}>+</button>
-      {channelList}
-      {messageList}
+      <div className='row'>
+        <div className='col-4'>
+          {channelList}
+        </div>
+        <div className='col-8'>
+          {messageList}
+        </div>
+      </div>
       <input type='text' name='message' id='message' placeholder='message' onChange={messageContent} />
       <button type='button' onClick={addMessage}>Send</button>
+    </>
+  )
 
+  return (
+    <>
+      
+      {/* <Login setAuth={setAuth} />
+      <Register setAuth={setAuth} /> */}
+
+      
+      {auth ? homeScreen : account ? <Login setAuth={setAuth} setAccount={setAccount}/> : <Register setAuth={setAuth} setAccount={setAccount}/>}
     </>
   );
 }
