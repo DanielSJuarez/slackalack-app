@@ -10,6 +10,8 @@ function App() {
   const [messageView, setMessageView] = useState([]);
   const [newMessage, setNewMessage] = useState('')
   const [newChannel, setNewChannel] = useState('')
+  const [pkChannelState, setPkchannelState] = useState('')
+
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'));
   const [state, setState] = useState({
     username: '',
@@ -65,11 +67,11 @@ function App() {
   }
 
   const channelList = channelsView.map(channel => (
-    <ChannelDisplay key={channel.id} {...channel} setMessageView={setMessageView} />
+    <ChannelDisplay key={channel.id} {...channel} setMessageView={setMessageView} setPkchannelState={setPkchannelState}/>
   ));
 
   const messageList = messageView.map(message => (
-    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} />
+    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} {...pkChannelState}/>
   ));
 
 
@@ -108,7 +110,7 @@ function App() {
   const addMessage = async () => {
     const message = {
       text: newMessage,
-      channel: 1,
+      channel: pkChannelState,
     }
     const options = {
       method: 'POST',
@@ -119,7 +121,7 @@ function App() {
       body: JSON.stringify(message)
     }
 
-    const response = await fetch(`/api/v1/channels/1/messages/`, options).catch(errorMessage);
+    const response = await fetch(`/api/v1/channels/${pkChannelState}/messages/`, options).catch(errorMessage);
 
     if (!response.ok) {
       throw new Error('Network response was not OK');

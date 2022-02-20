@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import Cookies from 'js-cookie'
-function ChannelDisplay({id, channel, errorMessage, setMessageView}) {
+function ChannelDisplay({id, channel, errorMessage, setMessageView, setPkchannelState}) {
+  const [channelClicked, setChannelClick] = useState(false)
+
   const viewChannelMessages = async () => {
-  
+    setPkchannelState(id)
     const options = {
       method: 'GET', 
       headers: {
@@ -19,6 +21,13 @@ function ChannelDisplay({id, channel, errorMessage, setMessageView}) {
     
     const data = await response.json();
     setMessageView(data)
+    setChannelClick(true)
+    
+  }
+
+  if (channelClicked == true) {
+    setInterval(() => viewChannelMessages, 10000)
+
   }
 
   return (

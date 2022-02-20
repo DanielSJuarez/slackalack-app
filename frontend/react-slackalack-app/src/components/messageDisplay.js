@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import{ useState} from 'react'
 
-function MessageDisplay({id,  text, username, errorMessage , pkChannel}) {
+function MessageDisplay({id,  text, username, errorMessage , pkChannelState}) {
   const [updatedMesssage, setUpdatedMessage] = useState('')
 
   const editMessageDetails = (event) => { 
@@ -12,7 +12,7 @@ function MessageDisplay({id,  text, username, errorMessage , pkChannel}) {
   const editMessage = async () => {
     const newUpdatedMessage = {
       text: updatedMesssage, 
-      channel: pkChannel,
+      channel: pkChannelState,
     }
     const options = {
       method: 'PUT', 
@@ -23,7 +23,7 @@ function MessageDisplay({id,  text, username, errorMessage , pkChannel}) {
       body: JSON.stringify(newUpdatedMessage) 
     }
 
-    const response = await fetch(`/api/v1/channels/${pkChannel}/messages/${id}/`, options).catch(errorMessage);
+    const response = await fetch(`/api/v1/channels/${pkChannelState}/messages/${id}/`, options).catch(errorMessage);
 
     if (!response.ok) {
       throw new Error('Network response was not OK');
@@ -42,7 +42,7 @@ function MessageDisplay({id,  text, username, errorMessage , pkChannel}) {
       },
     }
 
-    const response = await fetch(`/api/v1/channels/${pkChannel}/messages/${id}/`, options).catch(errorMessage);
+    const response = await fetch(`/api/v1/channels/${pkChannelState}/messages/${id}/`, options).catch(errorMessage);
 
     if (!response.ok) {
       throw new Error('Network response was not OK');
