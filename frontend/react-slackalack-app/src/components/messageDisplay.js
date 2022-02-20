@@ -51,9 +51,9 @@ function MessageDisplay({id,  text, username, errorMessage , pkChannelState}) {
 
 
   return (
-    <p>{text}
+    <p className='message'>{text}
       <span> {username}</span>
-      <span><input type='text' name='channel' id='channel' placeholder='channel' onChange={editMessageDetails}/></span>
+      <span><input type='text' name='message' id='message' placeholder='message' onChange={editMessageDetails}/></span>
       <span><button id={id} type='button' name='edit' onClick={editMessage}>edit</button></span>
       <span><button id={id} type='button' name='delete' onClick={deleteMessage}>delete</button></span>
     </p>

@@ -7,7 +7,7 @@ function Login(props) {
         username: '',
         password: ''
     })
-   
+
 
     const handleInput = (event) => {
         const { name, value } = event.target;
@@ -51,26 +51,30 @@ function Login(props) {
         props.setAccount(false)
     }
 
-
     return (
-        <form onSubmit={handleSubmit}>
-            <div className='col'>
-                <label htmlFor='username'>Username</label>
-                <input type='text' name='username' id='username' placeholder='username' onChange={handleInput} required value={state.username} />
+        <>
+            <h1 className='loginHeader'>Slackalack Login <span class="dot"></span></h1>
+            <div className='loginPlacholder'>
+                <form onSubmit={handleSubmit}>
+                    <div className='col loginField'>
+                        <label htmlFor='username'>Username</label>
+                        <input type='text' className='inputField' name='username' id='username' placeholder='username' onChange={handleInput} required value={state.username} />
+                    </div>
+                    <div className='col loginField'>
+                        <label htmlFor='email'>Email</label>
+                        <input type='email' className='inputField' name='email' id='email' placeholder='email' onChange={handleInput} required value={state.email} />
+                    </div>
+                    <div className='col loginField'>
+                        <label htmlFor='password'>Password</label>
+                        <input type='password' className='inputField' name='password' id='password' placeholder='password' onChange={handleInput} required value={state.password}></input>
+                    </div>
+                    <div className='col loginField'>
+                        <button className='loginRegisterButton' type='submit'>Login</button>
+                        <button className='loginRegisterButton'type='button' name='register' onClick={registerAccount}>Register</button>
+                    </div>
+                </form>
             </div>
-            <div className='col'>
-                <label htmlFor='email'>Email</label>
-                <input type='email' name='email' id='email' placeholder='email' onChange={handleInput} required value={state.email} />
-            </div>
-            <div className='col'>
-                <label htmlFor='password'>Password</label>
-                <input type='password' name='password' id='password' placeholder='password' onChange={handleInput} required value={state.password}></input>
-            </div>
-            <div className='col'>
-                <button type='submit'>Login</button>
-                <button type='button' name='register' onClick={registerAccount}>Register</button>
-            </div>
-        </form>
+        </>
     )
 
 }

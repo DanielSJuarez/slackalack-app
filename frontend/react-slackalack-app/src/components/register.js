@@ -49,29 +49,38 @@ function Register(props) {
         }
     }
 
+    const backToLogin = () => {
+        props.setAccount(true)
+    }
 
     return (
+        <>
+        <h1 className='loginHeader'>Slackalack Registration <span class="dot"></span></h1>
+        <div className='loginPlacholder'>
         <form onSubmit={handleCreateSubmit}>
-            <div className='col'>
+            <div className='col loginField'>
                 <label htmlFor='username'>Username</label>
-                <input type='text' name='username' id='username' placeholder='username' onChange={handleInput} required value={state.username} />
+                <input type='text' className='inputField' name='username' id='username' placeholder='username' onChange={handleInput} required value={state.username} />
             </div>
-            <div className='col'>
+            <div className='col loginField'>
                 <label htmlFor='email'>Email</label>
-                <input type='email' name='email' id='email' placeholder='email' onChange={handleInput} required value={state.email} />
+                <input type='email' className='inputField' name='email' id='email' placeholder='email' onChange={handleInput} required value={state.email} />
             </div>
-            <div className='col'>
+            <div className='col loginField'>
                 <label htmlFor='password1'>Password</label>
-                <input type='password' name='password1' id='password' placeholder='password' onChange={handleInput} required value={state.password1}></input>
+                <input type='password'  className='inputField'name='password1' id='password' placeholder='password' onChange={handleInput} required value={state.password1}></input>
             </div>
-            <div className='col'>
+            <div className='col loginField'>
                 <label htmlFor='password2'>Confirm Password</label>
-                <input type='password' name='password2' id='password' placeholder='password' onChange={handleInput} required value={state.password2}></input>
+                <input type='password' className='inputField' name='password2' id='password' placeholder='password' onChange={handleInput} required value={state.password2}></input>
             </div>
-            <div className='col'>
-                <button type='submit'>Login</button>
+            <div className='col loginField'>
+                <button type='submit' className='loginRegisterButton'>Login</button>
+                <button type='button' className='loginRegisterButton' name='backToLogin' onClick={backToLogin}>Back</button>
             </div>
         </form>
+        </div>
+        </>
     )
 
 }

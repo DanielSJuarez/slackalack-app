@@ -132,32 +132,27 @@ function App() {
 
   const homeScreen = (
     <>
-    <nav>
+      <nav>
         <button name='logOut' type='button' className='logOut' onClick={handleLogout}>Logout</button>
       </nav>
-      <input type='text' name='channel' id='channel' placeholder='channel' onChange={addChannelName} />
-      <button name='addChannel' type='button' className='addChannel' onClick={addChannel}>+</button>
       <div className='row'>
-        <div className='col-4'>
+        <div className='col-2 channelRow'>
+          <input type='text' name='channel' id='channel' placeholder='channel' onChange={addChannelName} />
+          <button name='addChannel' type='button' className='addChannel' onClick={addChannel}>+</button>
           {channelList}
         </div>
-        <div className='col-8'>
+        <div className='col-10'>
           {messageList}
+          <input type='text' name='message' id='message' placeholder='message' onChange={messageContent} />
+          <button type='button' onClick={addMessage}>Send</button>
         </div>
       </div>
-      <input type='text' name='message' id='message' placeholder='message' onChange={messageContent} />
-      <button type='button' onClick={addMessage}>Send</button>
     </>
   )
 
   return (
     <>
-      
-      {/* <Login setAuth={setAuth} />
-      <Register setAuth={setAuth} /> */}
-
-      
-      {auth ? homeScreen : account ? <Login setAuth={setAuth} setAccount={setAccount}/> : <Register setAuth={setAuth} setAccount={setAccount}/>}
+      {auth ? homeScreen : account ? <Login setAuth={setAuth} setAccount={setAccount} /> : <Register setAuth={setAuth} setAccount={setAccount} />}
     </>
   );
 }

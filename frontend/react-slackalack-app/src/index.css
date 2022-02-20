@@ -13,3 +13,88 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.channelButton{
+  background-color: #8E05C2;
+  width: 100%;
+  border: solid 1px black;
+  color: white;
+}
+
+.channelButton:hover{
+  background-color: #3E065F;
+}
+
+.channelRow{
+  border-right: 1px solid gray;
+  height:100vh;
+}
+
+.logOut{
+  border: none;
+  background-color: #3E065F;
+  color: white;
+}
+
+.message{
+  background-color: #700B97;
+  color: white;
+}
+
+.loginField{
+  text-align: center;
+  margin: 50px 0px
+}
+
+.loginHeader{
+  color: #700B97;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 100px;
+  margin-bottom: 30px;
+}
+
+.loginPlacholder{
+  margin: auto;
+  border: solid 3px #700B97;
+  max-width: 1000px;
+}
+
+.inputField{
+  width: 80%;
+  margin-left: 10px;
+}
+
+.inputField:hover{
+  background-color: rgb(204, 204, 204);
+}
+
+.loginRegisterButton{
+  background-color: #8E05C2;
+  color: white;
+  border: none;
+  margin: 0px 10px;
+  width: 100px;
+}
+
+.loginRegisterButton:hover{
+  background-color: #3E065F;
+}
+
+@keyframes rotate{
+  0%{
+      transform: rotate(360deg);
+  }
+  100%{
+      transform: rotate(0deg);
+  }
+}
+
+.dot {
+  height: 50px;
+  width: 50px;
+  background-image: linear-gradient(to bottom, black, #8E05C2);
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotate 3s infinite;
+}
