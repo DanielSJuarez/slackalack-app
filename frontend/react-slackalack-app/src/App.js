@@ -71,7 +71,7 @@ function App() {
   ));
 
   const messageList = messageView.map(message => (
-    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} {...pkChannelState}/>
+    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} pkChannelState={pkChannelState}/>
   ));
 
 
