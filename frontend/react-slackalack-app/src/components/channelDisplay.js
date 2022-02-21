@@ -4,9 +4,10 @@ function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchanne
   const [channelClicked, setChannelClick] = useState(false)
 
   const viewChannelMessages = () => {
-    setMessageField(true)
+
     setPkchannelState('')
     setPkchannelState(id)
+    setMessageField(true)
     setChannelClick(true)
   }
 

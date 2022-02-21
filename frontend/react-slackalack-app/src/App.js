@@ -22,7 +22,7 @@ function App() {
     username: '',
     password: ''
   })
-
+ 
   const errorMessage = (err) => {
     console.log(err);
   }
@@ -126,9 +126,11 @@ function App() {
 
     if (!response.ok) {
       throw new Error('Network response was not OK');
-    }
+    } 
 
-    setMessageView([...messageView, { 'text': newMessage}])
+    const data = await response.json();
+    
+    setMessageView([...messageView, data])
     setNewMessage('')
   }
 
@@ -137,7 +139,7 @@ function App() {
   ));
 
   const messageList = messageView.map(message => (
-    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} pkChannelState={pkChannelState} />
+    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} pkChannelState={pkChannelState} messageView={messageView} setMessageView={setMessageView}/>
   ));
 
   const homeScreen = (
