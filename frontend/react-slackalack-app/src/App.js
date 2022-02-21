@@ -5,6 +5,7 @@ import MessageDisplay from './components/messageDisplay';
 import Register from './components/register';
 import Cookies from 'js-cookie';
 import CreateChannel from './components/newChannel';
+import MessageField from './components/messageField';
 
 
 function App() {
@@ -15,8 +16,7 @@ function App() {
   const [pkChannelState, setPkchannelState] = useState('')
   const [account, setAccount] = useState(true)
   const [addChannelDisplay, setAddChannelDisplay] = useState(false);
-  
-
+  const [messageField, setMessageField] = useState(false)
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'));
   const [state, setState] = useState({
     username: '',
@@ -26,7 +26,6 @@ function App() {
   const errorMessage = (err) => {
     console.log(err);
   }
-
 
   useEffect(() => {
     const getChannels = async () => {
@@ -43,9 +42,6 @@ function App() {
     getChannels();
     setInterval(() => getChannels(), 10000)
   }, [])
-
-
-
 
   if (!channelsView) {
     return <div>Fetching channel data....</div>
@@ -70,14 +66,6 @@ function App() {
     Cookies.remove('Authorization', `Token ${data.key}`);
     setAuth(false);
   }
-
-  const channelList = channelsView.map(channel => (
-    <ChannelDisplay key={channel.id} {...channel} setMessageView={setMessageView} setPkchannelState={setPkchannelState} />
-  ));
-
-  const messageList = messageView.map(message => (
-    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} pkChannelState={pkChannelState} />
-  ));
 
   const addChannelName = (event) => {
     const channelName = event.target.value;
@@ -106,10 +94,10 @@ function App() {
     if (!response.ok) {
       throw new Error('Network response was not OK');
     }
+    setChannelsView([...channelsView, { 'channel': newChannel }])
     setNewChannel('')
     setAddChannelDisplay(false)
   }
-
 
   const messageContent = (event) => {
     const messageDetails = event.target.value;
@@ -139,9 +127,18 @@ function App() {
     if (!response.ok) {
       throw new Error('Network response was not OK');
     }
-    setNewMessage('')
 
+    setMessageView([...messageView, { 'text': newMessage}])
+    setNewMessage('')
   }
+
+  const channelList = channelsView.map(channel => (
+    <ChannelDisplay key={channel.id} {...channel} setMessageView={setMessageView} setPkchannelState={setPkchannelState} pkChannelState={pkChannelState} setMessageField={setMessageField} />
+  ));
+
+  const messageList = messageView.map(message => (
+    <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} pkChannelState={pkChannelState} />
+  ));
 
   const homeScreen = (
     <>
@@ -159,8 +156,7 @@ function App() {
         <div className='col-10 messageArea'>
           <div className='col messageSection'>
             {messageList}
-            <input type='text' name='message' id='message' placeholder='message' className='field messageInput' value={newMessage} onChange={messageContent} />
-            <button type='button' className='submit' onClick={addMessage}>Send</button>
+            <MessageField messageField={messageField} addMessage={addMessage} newMessage={newMessage} messageContent={messageContent} />
           </div>
         </div>
       </div>

@@ -56,7 +56,7 @@ function MessageDisplay({ id, text, username, errorMessage, pkChannelState }) {
 
   return (
     <p className='message'>{text}
-      <EditDelete editMessage={editMessage} setEditDeleteMessage={setEditDeleteMessage} deleteMessage={deleteMessage} editMessageDetails={editMessageDetails} editDeleteMessage={editDeleteMessage} />
+        <EditDelete username={username} editMessage={editMessage} setEditDeleteMessage={setEditDeleteMessage} deleteMessage={deleteMessage} editMessageDetails={editMessageDetails} editDeleteMessage={editDeleteMessage} />
     </p>
   );
 }

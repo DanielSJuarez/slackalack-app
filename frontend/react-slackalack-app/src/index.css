@@ -108,6 +108,15 @@ code {
   animation: rotate 3s infinite;
 }
 
+.bigDot{
+  height: 250px;
+  width: 250px;
+  background-image: linear-gradient(to bottom, black, #8E05C2);
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotate 3s infinite;
+}
+
 .addChannel{
   border:none;
   background: none;
@@ -157,7 +166,8 @@ code {
 }
 
 .messageInput{
-  width: 96%;
+  width: 95%;
+  margin-right: 3px;
 }
 
 .messageSection{
@@ -191,4 +201,9 @@ code {
 
 .statsButton:hover{
   background-color: #3E065F;
+}
+
+.username{
+  color: #8E05C2;
+  margin-right: 5px;
 }

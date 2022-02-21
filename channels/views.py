@@ -3,7 +3,6 @@ from rest_framework import generics
 from .models import ChannelDisplay, Message
 from .serializers import ChannelsSerializers, MessageSerializer
 
-
 # Create your views here.
 
 class ChannelsListAPIView(generics.ListCreateAPIView):
@@ -29,5 +28,6 @@ class MessageList(generics.ListCreateAPIView):
 class MessageListDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
 
     

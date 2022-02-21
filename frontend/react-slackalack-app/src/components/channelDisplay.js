@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie'
-function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchannelState }) {
+function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchannelState, setMessageField, pkChannelState}) {
   const [channelClicked, setChannelClick] = useState(false)
 
   const viewChannelMessages = () => {
+    setMessageField(true)
     setPkchannelState('')
     setPkchannelState(id)
     setChannelClick(true)
@@ -12,7 +13,7 @@ function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchanne
   useEffect(() => {
     if (channelClicked) {
       const getMessages = async () => {
-        const response = await fetch(`/api/v1/channels/${id}/messages/`).catch(errorMessage);
+        const response = await fetch(`/api/v1/channels/${pkChannelState}/messages/`).catch(errorMessage);
 
         if (!response.ok) {
           throw new Error('Netword response was not OK!')
