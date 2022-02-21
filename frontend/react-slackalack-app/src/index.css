@@ -26,14 +26,20 @@ code {
 }
 
 .channelRow{
-  border-right: 1px solid gray;
+  border: 1px solid gray;
   height:100vh;
 }
 
 .logOut{
   border: none;
-  background-color: #3E065F;
+  background-color: #700B97;
   color: white;
+  height: 25px;
+  margin-top: 5px;
+}
+
+.logOut:hover{
+  background-color: #3E065F;
 }
 
 .message{
@@ -97,4 +103,48 @@ code {
   border-radius: 50%;
   display: inline-block;
   animation: rotate 3s infinite;
+}
+
+.addChannel{
+  border:none;
+  background: none;
+  color: #8E05C2;
+  font-size: 30px;
+}
+
+.dot-small{
+  height: 20px;
+  width: 20px;
+  background-image: linear-gradient(to bottom, black, #8E05C2);
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotate 3s infinite;
+  margin-left: 10px;
+}
+
+.mainTitle{
+  color: #700B97;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.messageArea{
+  border: 1px solid gray;
+  background-image: linear-gradient(to bottom right, black, #3E065F);
+}
+
+.submit{
+  margin: 10px 0px;
+  margin-left: 2px;
+  border: solid 1px white;
+  background-color: #700B97;
+  color: white; 
+}
+
+.submit:hover{
+  background-color: #3E065F;
+}
+
+.field:hover{
+  background-color: rgb(204, 204, 204);
 }

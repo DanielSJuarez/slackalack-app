@@ -4,6 +4,7 @@ import Login from './components/login';
 import MessageDisplay from './components/messageDisplay';
 import Register from './components/register';
 import Cookies from 'js-cookie';
+import CreateChannel from './components/newChannel';
 
 function App() {
   const [channelsView, setChannelsView] = useState(null);
@@ -12,6 +13,8 @@ function App() {
   const [newChannel, setNewChannel] = useState('')
   const [pkChannelState, setPkchannelState] = useState('')
   const [account, setAccount] = useState(true)
+  const [addChannelDisplay, setAddChannelDisplay] = useState(false);
+
 
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'));
   const [state, setState] = useState({
@@ -82,6 +85,10 @@ function App() {
   }
 
   const addChannel = async () => {
+    if (newChannel.length < 1) {
+      alert('No channel name added')
+    }
+    
     const message = {
       channel: newChannel,
     }
@@ -99,7 +106,8 @@ function App() {
     if (!response.ok) {
       throw new Error('Network response was not OK');
     }
-    setNewMessage('')
+    setNewChannel('')
+    setAddChannelDisplay(false)
   }
 
 
@@ -128,23 +136,26 @@ function App() {
       throw new Error('Network response was not OK');
     }
     setNewMessage('')
+
   }
 
   const homeScreen = (
     <>
-      <nav>
-        <button name='logOut' type='button' className='logOut' onClick={handleLogout}>Logout</button>
+      <nav className='nav'>
+        <p className='mainTitle'>Slackalack
+          <span className="dot-small"></span>
+        </p>
       </nav>
+      <button name='logOut' type='button' className='logOut' onClick={handleLogout}>Logout</button>
       <div className='row'>
         <div className='col-2 channelRow'>
-          <input type='text' name='channel' id='channel' placeholder='channel' onChange={addChannelName} />
-          <button name='addChannel' type='button' className='addChannel' onClick={addChannel}>+</button>
+          <CreateChannel addChannel={addChannel} setAddChannelDisplay={setAddChannelDisplay} addChannelName={addChannelName} newChannel={newChannel} addChannelDisplay={addChannelDisplay}/>
           {channelList}
         </div>
-        <div className='col-10'>
+        <div className='col-10 messageArea'>
           {messageList}
-          <input type='text' name='message' id='message' placeholder='message' onChange={messageContent} />
-          <button type='button' onClick={addMessage}>Send</button>
+          <input type='text' name='message' id='message' placeholder='message' className='field' value={newMessage} onChange={messageContent} />
+          <button type='button' className='submit' onClick={addMessage}>Send</button>
         </div>
       </div>
     </>

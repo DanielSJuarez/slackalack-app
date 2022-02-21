@@ -25,7 +25,9 @@ function Register(props) {
 
     const handleCreateSubmit = async event => {
         event.preventDefault();
-        if (state.password1 !== state.password2) {
+        if(state.password1 < 8|| state.password2 < 8){
+            alert('Password is to short, password must be eight characters long')
+        } else if (state.password1 !== state.password2) {
             alert('Passwords to not match, please try again')
         }
 

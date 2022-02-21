@@ -24,7 +24,7 @@ function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchanne
       getMessages();
       setInterval(() => getMessages(), 10000)
     }
-  }, [channelClicked])
+  },[channelClicked])
 
   return (
     <div className='col'>
