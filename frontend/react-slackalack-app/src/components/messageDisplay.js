@@ -1,26 +1,29 @@
 import Cookies from 'js-cookie';
-import{ useState} from 'react'
+import { useState } from 'react'
+import EditDelete from './editDelete';
 
-function MessageDisplay({id,  text, username, errorMessage , pkChannelState}) {
+function MessageDisplay({ id, text, username, errorMessage, pkChannelState }) {
   const [updatedMesssage, setUpdatedMessage] = useState('')
+  const [editDeleteMessage, setEditDeleteMessage] = useState(false);
 
-  const editMessageDetails = (event) => { 
+
+  const editMessageDetails = (event) => {
     const updatedEdits = event.target.value;
-    setUpdatedMessage(updatedEdits) 
+    setUpdatedMessage(updatedEdits)
   }
 
   const editMessage = async () => {
     const newUpdatedMessage = {
-      text: updatedMesssage, 
+      text: updatedMesssage,
       channel: pkChannelState,
     }
     const options = {
-      method: 'PUT', 
+      method: 'PUT',
       headers: {
         'Content-type': 'application/json',
         'X-CSRFToken': Cookies.get('csrftoken')
       },
-      body: JSON.stringify(newUpdatedMessage) 
+      body: JSON.stringify(newUpdatedMessage)
     }
 
     const response = await fetch(`/api/v1/channels/${pkChannelState}/messages/${id}/`, options).catch(errorMessage);
@@ -29,13 +32,14 @@ function MessageDisplay({id,  text, username, errorMessage , pkChannelState}) {
       throw new Error('Network response was not OK');
     }
     setUpdatedMessage('')
+    setEditDeleteMessage(false)
   }
 
 
   const deleteMessage = async () => {
-  
+
     const options = {
-      method: 'DELETE', 
+      method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
         'X-CSRFToken': Cookies.get('csrftoken')
@@ -52,10 +56,7 @@ function MessageDisplay({id,  text, username, errorMessage , pkChannelState}) {
 
   return (
     <p className='message'>{text}
-      <span> {username}</span>
-      <span><input type='text' name='message' id='message' placeholder='message' onChange={editMessageDetails}/></span>
-      <span><button id={id} type='button' name='edit' onClick={editMessage}>edit</button></span>
-      <span><button id={id} type='button' name='delete' onClick={deleteMessage}>delete</button></span>
+      <EditDelete editMessage={editMessage} setEditDeleteMessage={setEditDeleteMessage} deleteMessage={deleteMessage} editMessageDetails={editMessageDetails} editDeleteMessage={editDeleteMessage} />
     </p>
   );
 }

@@ -27,7 +27,7 @@ code {
 
 .channelRow{
   border: 1px solid gray;
-  height:100vh;
+  overflow:scroll;
 }
 
 .logOut{
@@ -43,8 +43,11 @@ code {
 }
 
 .message{
-  background-color: #700B97;
+  display: flex;
   color: white;
+  width: auto;
+  max-width: 100%;
+  justify-content: space-between;
 }
 
 .loginField{
@@ -112,6 +115,10 @@ code {
   font-size: 30px;
 }
 
+.addChannel:hover {
+  color: white;
+}
+
 .dot-small{
   height: 20px;
   width: 20px;
@@ -147,4 +154,41 @@ code {
 
 .field:hover{
   background-color: rgb(204, 204, 204);
+}
+
+.messageInput{
+  width: 96%;
+}
+
+.messageSection{
+  margin-top: 20px;
+  height: 825px;
+  overflow:scroll;
+}
+
+.userName{
+  color: #700B97;
+  margin: 0px 10px ;
+}
+
+.edit{
+  margin-right: 0px 5px;
+}
+
+.editInput{
+  margin: 0px 5px ;
+}
+
+.editInput:hover{
+  background-color: rgb(204, 204, 204);
+}
+
+.statusButton{
+  background-color: #8E05C2;
+  border: solid 1px black;
+  color: white;
+}
+
+.statsButton:hover{
+  background-color: #3E065F;
 }

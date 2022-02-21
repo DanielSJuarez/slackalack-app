@@ -6,6 +6,7 @@ import Register from './components/register';
 import Cookies from 'js-cookie';
 import CreateChannel from './components/newChannel';
 
+
 function App() {
   const [channelsView, setChannelsView] = useState(null);
   const [messageView, setMessageView] = useState([]);
@@ -14,7 +15,7 @@ function App() {
   const [pkChannelState, setPkchannelState] = useState('')
   const [account, setAccount] = useState(true)
   const [addChannelDisplay, setAddChannelDisplay] = useState(false);
-
+  
 
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'));
   const [state, setState] = useState({
@@ -78,7 +79,6 @@ function App() {
     <MessageDisplay key={message.id} {...message} errorMessage={errorMessage} setMessageView={setMessageView} pkChannelState={pkChannelState} />
   ));
 
-
   const addChannelName = (event) => {
     const channelName = event.target.value;
     setNewChannel(channelName)
@@ -88,7 +88,7 @@ function App() {
     if (newChannel.length < 1) {
       alert('No channel name added')
     }
-    
+
     const message = {
       channel: newChannel,
     }
@@ -117,6 +117,10 @@ function App() {
   }
 
   const addMessage = async () => {
+    if (newMessage.length < 1) {
+      alert('No message added')
+    }
+
     const message = {
       text: newMessage,
       channel: pkChannelState,
@@ -149,13 +153,15 @@ function App() {
       <button name='logOut' type='button' className='logOut' onClick={handleLogout}>Logout</button>
       <div className='row'>
         <div className='col-2 channelRow'>
-          <CreateChannel addChannel={addChannel} setAddChannelDisplay={setAddChannelDisplay} addChannelName={addChannelName} newChannel={newChannel} addChannelDisplay={addChannelDisplay}/>
+          <CreateChannel addChannel={addChannel} setAddChannelDisplay={setAddChannelDisplay} addChannelName={addChannelName} newChannel={newChannel} addChannelDisplay={addChannelDisplay} />
           {channelList}
         </div>
         <div className='col-10 messageArea'>
-          {messageList}
-          <input type='text' name='message' id='message' placeholder='message' className='field' value={newMessage} onChange={messageContent} />
-          <button type='button' className='submit' onClick={addMessage}>Send</button>
+          <div className='col messageSection'>
+            {messageList}
+            <input type='text' name='message' id='message' placeholder='message' className='field messageInput' value={newMessage} onChange={messageContent} />
+            <button type='button' className='submit' onClick={addMessage}>Send</button>
+          </div>
         </div>
       </div>
     </>

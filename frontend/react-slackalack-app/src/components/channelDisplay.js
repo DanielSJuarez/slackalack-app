@@ -4,11 +4,12 @@ function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchanne
   const [channelClicked, setChannelClick] = useState(false)
 
   const viewChannelMessages = () => {
+    setPkchannelState('')
+    setPkchannelState(id)
     setChannelClick(true)
   }
 
   useEffect(() => {
-    setPkchannelState(id)
     if (channelClicked) {
       const getMessages = async () => {
         const response = await fetch(`/api/v1/channels/${id}/messages/`).catch(errorMessage);
