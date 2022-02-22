@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie'
 function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchannelState, setMessageField, pkChannelState}) {
   const [channelClicked, setChannelClick] = useState(false)
@@ -11,8 +11,11 @@ function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchanne
     setChannelClick(true)
   }
 
+  const intervalRef = useRef(null);
+
   useEffect(() => {
-    if (channelClicked) {
+    if (intervalRef != null) {
+      clearInterval(intervalRef.current);
       const getMessages = async () => {
         const response = await fetch(`/api/v1/channels/${pkChannelState}/messages/`).catch(errorMessage);
 
@@ -25,9 +28,13 @@ function ChannelDisplay({ id, channel, errorMessage, setMessageView, setPkchanne
         }
       }
       getMessages();
-      setInterval(() => getMessages(), 10000)
+      const fetchMessages = setInterval(() => getMessages(), 10000)
+      intervalRef.current = fetchMessages;
+      return () => {
+        clearInterval(intervalRef.current);
+      }
     }
-  },[channelClicked])
+  },[pkChannelState])
 
   return (
     <div className='col'>
